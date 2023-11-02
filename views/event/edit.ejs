@@ -1,0 +1,56 @@
+<%- include('../partials/header.ejs')%>
+        <div class="main-content">
+            <h1><b>Create a New Event</b></h1>
+
+            <form id="new-event-form" action="/events/<%= event.id %>?_method=PUT" enctype="multipart/form-data" method="post">
+                <div class="form-group">
+                    <label for="title">Event Name</label>
+                    <input type="text" required id="title" name="title" value="<%= event.title %>">
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="afternoon-session" <%=event.category === 'Afternoon Session' ? 'selected' : '' %>>Afternoon Session</option>
+                    <option value="evening-session" <%=event.category === 'Evening Session' ? 'selected' : '' %>>Evening Session</option>
+                    <option value="Freestyle" <%=event.category === 'Freestyle' ? 'selected' : '' %>>Freestyle</option>
+                    <option value="junior" <%=event.category === 'Junior' ? 'selected' : '' %>>Junior</option>
+                    <option value="middle" <%=event.category === 'Middle' ? 'selected' : '' %>>Middle</option>
+                    <option value="senior" <%=event.category === 'Senior' ? 'selected' : '' %>>Senior</option>
+                    <option value="free-range" <%=event.category === 'Free Range' ? 'selected' : '' %>>Free Range</option>
+                    <option value="other" <%=event.category === 'Other' ? 'selected' : '' %>>Other</option>
+                </select>
+            </div>
+
+            <div class = "form-group">
+                <label for="hostName">Host Name</label>
+                <input type="text" required id="hostName" name="hostName" value="<%= event.hostName %>">
+            </div>
+            <div class="form-group">
+                <label for="event-location">Location</label>
+                <input type="location" required id="location" name="location" value="<%= event.location %>">
+            </div>
+
+            <div class="form-group">
+                <label for="startTime">Start Date</label>
+                <input type="datetime-local" required id="startTime" name="startTime" value="<%= new Date(event.startTime + ' GMT').toISOString().replace('Z', '') %>">
+            </div>
+
+            <div class="form-group">
+                <label for="endTime">End Time</label>
+                <input type="datetime-local" required id="endTime" name="endTime" value="<%= new Date(event.endTime + ' GMT').toISOString().replace('Z', '') %>">
+            </div>
+
+            <div class="form-group">
+                <label for="content">Description</label>
+                <textarea id="content" required name="content"><%= event.content %></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" id="image" required name="image" placeholder="Image">
+            </div>
+
+            <button type="submit" class="submit-button">Create Event</button>
+    </form>
+</div>
+<%- include('../partials/footer.ejs')%>

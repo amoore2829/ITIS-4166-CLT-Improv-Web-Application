@@ -1,0 +1,56 @@
+<%- include('../partials/header.ejs')%>
+        <div class="main-content">
+            <h1><b>Create a New Event</b></h1>
+
+            <form id="new-event-form" action="/events" enctype="multipart/form-data" method="post">
+                <div class="form-group">
+                    <label for="title">Event Name</label>
+                    <input type="text" id="title" name="title" placeholder="title">
+
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" required>
+                    <option value="afternoon-session">Afternoon Session</option>
+                    <option value="evening-session">Evening Session</option>
+                    <option value="freestyle">Freestyle</option>
+                    <option value="junior">Junior</option>
+                    <option value="middle">Middle</option>
+                    <option value="senior">Senior</option>
+                    <option value="free-range">Free Range</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div class = "form-group">
+                <label for="hostName">Host Name</label>
+                <input type="text" id="hostName" name="hostName" placeholder="Host Name">
+            </div>
+            <div class="form-group">
+                <label for="event-location">Location</label>
+                <input type="location" id="location" name="location" placeholder="Location">
+            </div>
+
+            <div class="form-group">
+                <label for="startTime">Start Date</label>
+                <input type="datetime-local" id="startTime" name="startTime" placeholder="Start Time">
+            </div>
+
+            <div class="form-group">
+                <label for="endTime">End Time</label>
+                <input type="datetime-local" id="endTime" name="endTime" placeholder="End Time">
+            </div>
+
+            <div class="form-group">
+                <label for="content">Description</label>
+                <textarea id="content" name="content" placeholder="Content"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Image</label>
+                <input type="file" id="image" name="image" placeholder="Image">
+            </div>
+
+            <button type="submit" class="submit-button">Create Event</button>
+    </form>
+</div>
+<%- include('../partials/footer.ejs')%>
