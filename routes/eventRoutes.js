@@ -25,6 +25,4 @@ router.put('/:id', fileUpload.fileUpload, controller.update);
 // DELETE /events/:id delete the event identify by id
 router.delete('/:id', controller.delete);
 
-
-
 module.exports = router;

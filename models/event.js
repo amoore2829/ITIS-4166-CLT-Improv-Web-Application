@@ -1,47 +1,28 @@
-const { DateTime } = require("luxon");
-const {v4: uuidv4} = require('uuid');
-const events = [
-    {
-        id: '1',
-        title: 'First Practice',
-        content: 'This is the first practice.',
-        hostName: 'Alex Moore',
-        startTime: DateTime.fromObject({year: 2023, month: 10, day: 10, hour: 10, minute: 30})
-        .toLocaleString(DateTime.DATETIME_SHORT),
-        endTime: DateTime.fromObject({year: 2023, month: 10, day: 10, hour: 11, minute: 30})
-        .toLocaleString(DateTime.DATETIME_SHORT),
-        image: 'images/firstPractice.jpg',
-        location: 'Belk Gym',
-        category: 'Afternoon Session'
-    },
-    {
-        id: '2',
-        title: 'Second Practice',
-        content: 'This is the second practice.',
-        hostName: 'Spongebob Squarepants',
-        startTime: DateTime.fromObject({year: 2023, month: 10, day: 15, hour: 10, minute: 30})
-        .toLocaleString(DateTime.DATETIME_SHORT),
-        endTime: DateTime.fromObject({year: 2023, month: 10, day: 15, hour: 11, minute: 30})
-        .toLocaleString(DateTime.DATETIME_SHORT),
-        image: 'images/secondPractice.jpg',
-        location: 'Belk Gym',
-        category: 'Evening Session'
-    },
-    {
-        id: '3',
-        title: 'Competition',
-        content: 'This is the competition.',
-        hostName: 'Alex Moore',
-        startTime: DateTime.fromObject({year: 2023, month: 10, day: 30, hour: 10, minute: 30})
-        .toLocaleString(DateTime.DATETIME_SHORT),
-        endTime: DateTime.fromObject({year: 2023, month: 10, day: 30, hour: 11, minute: 30})
-        .toLocaleString(DateTime.DATETIME_SHORT),
-        image: 'images/competition.jpg',
-        location: 'Belk Gym',
-        category: 'free-range'
-    }
-];
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const express = require('express');
+const { DateTime } = require('luxon');
 
+
+const app = express();
+
+const meetupSchema = new Schema(
+    {
+        category: {type: String, enum: ['Afternoon Session', 'Evening Session', 'Freestyle', 'Junior', 'Middle', 'Senior', 'Free Range', 'Other'], default: 'Other', required: [true, "Category is required"]},
+        title: {type: String, required: [true, "Title is required"], minLength: [2, "Title should be at least 2 characters"]},
+        content: {type: String, required: [true, "Details are required"], minLength: [10, "Description should be at least 10 characters"]},
+        location: {type: String, required: [true, "Location is required"], minLength: [3, "Location should be at least 3 characters"]},
+        hostName: {type: String, required: [true, "Host name is required"], minLength: [2, "Host name should be at least 2 characters"]},
+        startTime: {type: Date, required: [true, "Start date is required"]},
+        endTime: {type: Date, required: [true, "End date is required"]},
+        image: {type: String, required: [true, "Image is required"]},
+    },
+    {timestamps: true}
+)
+
+module.exports = mongoose.model('Meetup', meetupSchema);
+
+/*
 exports.find = () => events;
 
 exports.findByID = id => events.find(event=>event.id === id);
@@ -110,6 +91,7 @@ exports.deleteById = function (id) {
     }
 }
 
+
 exports.getAllDistinctCategories = function() {
 
     const distinctCategories = new Set();
@@ -120,5 +102,6 @@ exports.getAllDistinctCategories = function() {
   
     return Array.from(distinctCategories);
   }
+*/
 
 

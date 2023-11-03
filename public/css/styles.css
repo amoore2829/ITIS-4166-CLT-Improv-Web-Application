@@ -4,7 +4,8 @@ h1, h2, body, p, ul, li {
 }
 
 h1 {
-    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 36px;
     margin-bottom: 20px;
     text-align: center;
 }
@@ -12,17 +13,28 @@ h1 {
 body {
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: #f2f2f2;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
 }
 
 header {
     background-color: #00703C;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
     text-align: center;
     padding: 10px 0;
-    height: 125px;
+    height: 150px;
+    background: linear-gradient(to bottom, #00703C, #005629);
+    transition: background-color 0.3s ease, transform 0.2s;
+
+}
+
+header:hover {
+    background-color: #005629;
+    transform: scale(1.02);
 }
 
 .header-content {
@@ -49,6 +61,8 @@ nav ul {
     list-style: none;
     display: flex;
     align-items: center;
+    margin: 0;
+    padding: 0;
 }
 
 nav ul li {
@@ -64,7 +78,7 @@ nav ul li a {
     color: #fff;
     font-size: 18px;
     font-weight: bold;
-    transition: color 0.3s ease;
+    transition: background-color 0.3s ease;
 }
 
 nav ul li a:hover {
@@ -106,10 +120,11 @@ nav ul li a:hover {
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
-    margin: 20px 0;
+    margin: 10px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
     text-align: left;
     width: 250px;
+    transition: transform 0.2s;
 }
 
 .event h2 {
@@ -125,6 +140,10 @@ nav ul li a:hover {
 .event:before {
     display: block;
     padding-top: 100%;
+}
+
+.event:hover {
+    transform: scale(1.02);
 }
 
 .event-link {
@@ -159,10 +178,11 @@ select,
 textarea,
 input[type="file"] {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    placeholder: #999;
 }
 
 .submit-button {
@@ -173,11 +193,13 @@ input[type="file"] {
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s;
+    padding: 12px 24px;
 }
 
 .submit-button:hover {
-    background-color: #B3A369;
+    background-color: #005629;
+    transform: scale(1.02);
 }
 
 .afternoon-session-link:hover {
@@ -191,10 +213,11 @@ input[type="file"] {
 }
 
 footer {
-    background-color: #00703C;
-    color:#fff;
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to bottom, #00703C, #005629);
+    color: #fff;
     text-align: center;
-    padding: 10px 0;
+    padding: 20px 0
 }
 
 .footer-bottom {

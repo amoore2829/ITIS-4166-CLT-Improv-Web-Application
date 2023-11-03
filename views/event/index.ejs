@@ -1,24 +1,16 @@
 <%- include ('../partials/header.ejs') %>
-    <div class = "content">
-        <div class="current-events-container">
-            <% category.forEach(category => { %>
-              <div class="current-events">
-                <div class="activities">
-                  <div class="activities-header">
-                    <h1><%= category %></h1>
-       
-                  </div>
-                  <div class="activities-body">
-                    <% events.forEach(event => { %>
-                      <% if (event.category === category) { %>
-                        <ul>
-                          <li><a href="/events/<%= event.id %>"><%= event.title %></a></li>
-                        </ul>
-                      <% } %>
+<div class="content">
+    <div class="current-events-container">
+        <div class="activities-body">
+            <% Object.keys(eventObject).forEach(category => { %>
+                <h2><%= category %></h2>
+                <ul>
+                    <% eventObject[category].forEach(event => { %>
+                        <li><a href="/events/<%= event.id %>"><%= event.title %></a></li>
                     <% }) %>
-                  </div>
-                </div>
-              </div>
+                </ul>
             <% }) %>
+        </div>
     </div>
-    <%- include ('../partials/footer.ejs') %>
+</div>
+<%- include ('../partials/footer.ejs') %>

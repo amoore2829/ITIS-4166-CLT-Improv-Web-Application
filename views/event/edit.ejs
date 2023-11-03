@@ -1,6 +1,6 @@
 <%- include('../partials/header.ejs')%>
         <div class="main-content">
-            <h1><b>Create a New Event</b></h1>
+            <h1><b>Edit Event</b></h1>
 
             <form id="new-event-form" action="/events/<%= event.id %>?_method=PUT" enctype="multipart/form-data" method="post">
                 <div class="form-group">
@@ -10,14 +10,14 @@
             <div class="form-group">
                 <label for="category">Category</label>
                 <select id="category" name="category" required>
-                    <option value="afternoon-session" <%=event.category === 'Afternoon Session' ? 'selected' : '' %>>Afternoon Session</option>
-                    <option value="evening-session" <%=event.category === 'Evening Session' ? 'selected' : '' %>>Evening Session</option>
+                    <option value="Afternoon Session" <%=event.category === 'Afternoon Session' ? 'selected' : '' %>>Afternoon Session</option>
+                    <option value="Evening Session" <%=event.category === 'Evening Session' ? 'selected' : '' %>>Evening Session</option>
                     <option value="Freestyle" <%=event.category === 'Freestyle' ? 'selected' : '' %>>Freestyle</option>
-                    <option value="junior" <%=event.category === 'Junior' ? 'selected' : '' %>>Junior</option>
-                    <option value="middle" <%=event.category === 'Middle' ? 'selected' : '' %>>Middle</option>
-                    <option value="senior" <%=event.category === 'Senior' ? 'selected' : '' %>>Senior</option>
-                    <option value="free-range" <%=event.category === 'Free Range' ? 'selected' : '' %>>Free Range</option>
-                    <option value="other" <%=event.category === 'Other' ? 'selected' : '' %>>Other</option>
+                    <option value="Junior" <%=event.category === 'Junior' ? 'selected' : '' %>>Junior</option>
+                    <option value="Middle" <%=event.category === 'Middle' ? 'selected' : '' %>>Middle</option>
+                    <option value="Senior" <%=event.category === 'Senior' ? 'selected' : '' %>>Senior</option>
+                    <option value="Free Range" <%=event.category === 'Free Range' ? 'selected' : '' %>>Free Range</option>
+                    <option value="Other" <%=event.category === 'Other' ? 'selected' : '' %>>Other</option>
                 </select>
             </div>
 
@@ -50,7 +50,7 @@
                 <input type="file" id="image" required name="image" placeholder="Image">
             </div>
 
-            <button type="submit" class="submit-button">Create Event</button>
+            <button type="submit" class="submit-button">Edit Event</button>
     </form>
 </div>
 <%- include('../partials/footer.ejs')%>

@@ -3,7 +3,7 @@
     <h1><b><%= event.title %></b></h1>
 
     <div class="event-highlights">
-        <img src=<%= event.image %> alt="Improv Photo" class="image">
+        <img src=/<%= event.image %> alt="Improv Photo" class="image">
         <p><strong><%= event.category %></strong></p>
         <p><strong>Host:</strong> <%= event.hostName %></p>
         <p><strong>Start Time</strong> <%= event.startTime %></p>
@@ -18,8 +18,8 @@
 
     <form>
     <div class="event-buttons">
-        <button class="edit-button" formmethod="GET" formaction="/events/<%= event.id%>/edit"><i class="fas fa-pen-to-square"></i>Edit Event</button>
-        <button class="delete-button" formmethod="POST" formaction="/events/<%= event.id%>?_method=DELETE"><i class="fas fa-trash"></i>Delete Event</button>
+        <button class="edit-button" method="GET" formaction="/events/<%= event.id%>/edit"><i class="fas fa-pen-to-square"></i>Edit Event</button>
+        <button class="delete-button" method="POST" formaction="/events/<%= event.id%>?_method=DELETE"><i class="fas fa-trash"></i>Delete Event</button>
     </div>
 </form>
 </div>
