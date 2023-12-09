@@ -50,6 +50,13 @@ app.use(session({
 
 app.use(flash());
 
+app.use((req, res, next) => {
+    res.locals.user = req.session.user || null;
+    res.locals.success = req.flash('success');
+    res.locals.error = req.flash('error');
+    next();
+});
+
 // set up routes
 //app.get('/', (req, res) => {
 //    res.redirect('./index');
@@ -59,19 +66,21 @@ app.use('/', mainRoutes);
 
 app.use('/events', eventRoutes);
 
-app.use((req, res, next) => {
-    let err = new Error('The server cannot locate ' + req.url);
-    err.status = 404;
-    next(err);
-});
+app.use('/users', userRoutes);
 
-app.use((err, req, res, next) => {
-    if(!err.status) {
-        err.status = 500;
-        err.message = ('Internal Server Error');
-    }
-    console.log(err);
+// app.use((req, res, next) => {
+//     let err = new Error('The server cannot locate ' + req.url);
+//     err.status = 404;
+//     next(err);
+// });
 
-    res.status(err.status);
-    res.render('error', { error: err, user: req.user });
-});
+// app.use((err, req, res, next) => {
+//     if(!err.status) {
+//         err.status = 500;
+//         err.message = ('Internal Server Error');
+//     }
+//     console.log(err);
+
+//     res.status(err.status);
+//     res.render('error', { error: err, user: req.user });
+// });

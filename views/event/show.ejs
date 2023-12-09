@@ -1,19 +1,14 @@
 <%- include ('../partials/header.ejs') %>
 <div class="main-content">
-    <h1><b><%= event.title %></b></h1>
-    <small>Posted <%= story.createdAt%> by <%= story.author.firstName + ' ' + story.author.lastName%></small>
-    <div class="event-highlights">
-        <img src=/<%= event.image %> alt="Improv Photo" class="image">
-        <p><strong><%= event.category %></strong></p>
-        <p><strong>Host:</strong> <%= event.hostName %></p>
-        <p><strong>Start Time</strong> <%= event.startTime %></p>
-        <p><strong>End Time</strong> <%= event.endTime %></p>
-        <p><strong>Location:</strong> <%= event.location %></p>
-    </div>
-
-    <div class="event-description">
-        <h2>Details:</h2>
-        <p><%= event.content %></p>
-    </div>
+    <h1><%=event.title %></h1>
+    <h1>Start Time: <%= (new Date(event.startTime)).toLocaleString() %>
+    <h1>End Time: <%= (new Date(event.endTime)).toLocaleString() %>
+    <%= event.host.firstName + ' ' + event.host.lastName %>
+    <h1><%=event.location %></h1>
+    <h1><%=event.description %></h1>
+    <img class="card-img-top" src="/<%= event.image %>" alt="<%= event.title %> improv pic" style="object-fit: cover;" width="286" height="398">
+    <h1><%=event.category %></h1>
+    
+    
 </div>
     <%- include ('../partials/footer.ejs') %>

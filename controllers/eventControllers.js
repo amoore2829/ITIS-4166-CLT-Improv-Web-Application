@@ -28,15 +28,20 @@ exports.new = (req, res) => {
 // POST /events: create a new event
 exports.create = (req, res, next) => {
     // res.send('create a new event');
-    let event = req.body;
+    let event = (req.body);
+
+    event.host = req.session.user;
+    console.log(req.session);
 
     event.image = "images/" + req.file.filename;
-    console.log(event);
+    
+    event2 = new model(event);
 
-    let model2 = new model(event);
-    model2.save()
-    .then((event) => res.render('./event/show', {event}))
-    .catch(err => 
+    event2.save()
+    .then((event) =>  {
+        res.redirect('/events')
+
+    }).catch(err => 
         {
             if (err.name === 'ValidationError')
             {
@@ -56,13 +61,14 @@ exports.show = (req, res, next) =>
         err.status = 400;
         return next(err);
     }
-    model.findById(id)
+
+    model.findById(id).populate('host', 'firstName lastName')
     .then(
         (event) => {
             if (event)
             {
-                res.render('./event/show', {event})
                 console.log(event);
+                res.render('./event/show', {event})
             }
             else
             {

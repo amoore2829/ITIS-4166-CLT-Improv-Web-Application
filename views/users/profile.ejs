@@ -1,17 +1,28 @@
-<%- include('../partials/header.ejs') %>
+<%- include ('../partials/header.ejs') %>
 
-<div class="main-content">
-  <h2>Welcome, <%= user.firstName %></h2>
-  <% if (stories.length) { %>
-      <p>You have created the following events</p>
-      <% stories.forEach(event => { %>
-          <a href="/events/<%= event.id %>"><p><%= event.title %></p></a>
-      <% }); %>
-  <% } else { %>
-      <p>You have not created any events.</p>
-  <% } %>
-    <button>Edit Profile</button>
-    <button>Change Password</button>
-</div>
 
-<%- include('../partials/footer.ejs') %>
+<% if (events.length > 0) { %>
+  <h3>Your Meetups</h3>
+  <% events.forEach(function(event) { %>
+    <div><%= event.title %></div>
+    <a href="/events/<%= event._id %>"><%= event.title %></a>
+    <form>
+      <button type="submit" formaction="/events/<%= event._id %>?_method=DELETE" formmethod="post" value="Delete">
+      </button>
+      <button type="submit" formaction="/events/<%= event._id %>/edit" formmethod="get" value="Edit">
+      </button>  
+  </form>
+    <div><%= event.location %></div>
+    <div><%= event.description %></div>
+    <div><%= event.category %></div>
+    <div><%= event.host.firstName + ' ' + event.host.lastName %></div>
+    <div><%= (new Date(event.startTime)).toLocaleString() %></div>
+    <div><%= (new Date(event.endTime)).toLocaleString() %></div>
+    <div><%= event.image %></div>
+  <% }) %>
+<% } else { %>
+  <h3>You have no meetups</h3>
+<% } %>
+
+
+<%- include ('../partials/footer.ejs') %>

@@ -12,7 +12,7 @@ const meetupSchema = new Schema(
         title: {type: String, required: [true, "Title is required"], minLength: [2, "Title should be at least 2 characters"]},
         content: {type: String, required: [true, "Details are required"], minLength: [10, "Description should be at least 10 characters"]},
         location: {type: String, required: [true, "Location is required"], minLength: [3, "Location should be at least 3 characters"]},
-        host: {type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
+        host: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
         startTime: {type: Date, required: [true, "Start date is required"]},
         endTime: {type: Date, required: [true, "End date is required"]},
         image: {type: String, required: [true, "Image is required"]}
@@ -22,7 +22,7 @@ const meetupSchema = new Schema(
 
 module.exports = mongoose.model('Meetup', meetupSchema);
 
-/*
+
 exports.find = () => events;
 
 exports.findByID = id => events.find(event=>event.id === id);
@@ -102,6 +102,6 @@ exports.getAllDistinctCategories = function() {
   
     return Array.from(distinctCategories);
   }
-*/
+
 
 
