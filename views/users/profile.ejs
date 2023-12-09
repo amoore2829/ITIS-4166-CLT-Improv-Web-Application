@@ -4,7 +4,6 @@
 <% if (events.length > 0) { %>
   <h3>Your Meetups</h3>
   <% events.forEach(function(event) { %>
-    <div><%= event.title %></div>
     <a href="/events/<%= event._id %>"><%= event.title %></a>
     <form>
       <button type="submit" formaction="/events/<%= event._id %>?_method=DELETE" formmethod="post" value="Delete">

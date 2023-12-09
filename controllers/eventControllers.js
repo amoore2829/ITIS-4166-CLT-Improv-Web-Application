@@ -1,6 +1,7 @@
 const express = require('express');
 const model = require('../models/event');
 const { DateTime } = require("luxon");
+const rsvpModel = require('../models/rsvp');
 
 exports.index = (req, res, next) => {
     //res.send('send all events');
@@ -55,20 +56,13 @@ exports.create = (req, res, next) => {
 exports.show = (req, res, next) =>
 {
     let id = req.params.id;
-    if (!id.match(/^[0-9a-fA-F]{24}$/))
-    {
-        let err = new Error('Invalid id given: ' + id)
-        err.status = 400;
-        return next(err);
-    }
-
-    model.findById(id).populate('host', 'firstName lastName')
-    .then(
-        (event) => {
+    Promise.all([model.findById(id).populate('host'), rsvpModel.where({status: 'Yes', event: id})])
+        .then((results) => {
+            const [event, rsvps] = results;
             if (event)
             {
                 console.log(event);
-                res.render('./event/show', {event})
+                res.render('./event/show', {event, rsvpCount: rsvps.length})
             }
             else
             {
@@ -76,20 +70,14 @@ exports.show = (req, res, next) =>
                 err.status = 404;
                 next(err);
             }
-}
-    )
+        }   )
     .catch(err => next(err))
+
 };
 
 // GET /events/:id/edit: send the HTML form for editing a event
 exports.edit = (req, res, next) => {
     let id = req.params.id;
-    if (!id.match(/^[0-9a-fA-F]{24}$/))
-    {
-        let err = new Error('Invalid id given: ' + id)
-        err.status = 400;
-        return next(err);
-    }
     model.findById(id)
     .then(
         (event) => {
