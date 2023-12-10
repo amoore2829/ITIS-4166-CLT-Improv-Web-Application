@@ -3,6 +3,7 @@ const Event = require('../models/event');
 //const profile = require('../views/users/profile.ejs');
 const { isGuest, isLoggedIn } = require('../middleware/auth');
 const bcrypt = require('bcrypt');
+const rsvpModel = require('../models/rsvp');
 
 exports.getRegister = (req, res) => {
     res.render('./users/register');
@@ -18,6 +19,7 @@ exports.registerUser = (req, res, next) => {
     
         user.save()
         .then(() => {
+            req.session.user = user._id;
             req.flash('success', 'You have successfully signed up. Please login');
             res.redirect('/users/login')
         })
@@ -82,24 +84,17 @@ exports.login = async (req, res) => {
     }
 };
 
-exports.profile = async (req, res, next) => {
-    let id = req.session.user;
-    Promise.all([User.findById(id), Event.find({ host: id })])// Rsvp.find({hostName: id}).populate('event')])
-    .then((results) => 
-    {
-      const [user, events] = results;// rsvps] = results;
-      res.render("./users/profile", { user, events});// rsvps });
+exports.getProfile = (req, res, next) => { 
+    let id = req.session.user.id;
+    Promise.all([User.findById(id), Event.find({host: id}), rsvpModel.find({user: id}).populate('event', 'title')]) 
+    .then(results=> {
+        
+        console.log(results);
+        const [user, event, rsvp] = results;
+        res.render('./user/profile', {user, event, rsvp})
     })
-    .catch((err) => next(err));
-   // try {
-    //     const user = await User.findById(id);
-    //     const events = await Event.find({ author: id });
-
-    //     res.render('profile', { user, events });
-    // } catch (err) {
-    //     next(err);
-    // }
-};
+    .catch(err=>next(err));
+}
 
 exports.logout = (req, res, next) => {
     req.session.destroy(err => {

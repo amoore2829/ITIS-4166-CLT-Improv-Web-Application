@@ -2,6 +2,9 @@ const express = require('express');
 const model = require('../models/event');
 const { DateTime } = require("luxon");
 const rsvpModel = require('../models/rsvp');
+const mongoose = require('mongoose');
+const { validateId } = require('../middleware/validator');
+
 
 exports.index = (req, res, next) => {
     //res.send('send all events');
@@ -158,3 +161,27 @@ exports.delete = (req, res, next) => {
     })
     .catch(err => next(err))
 };
+
+exports.rsvp = (req, res, next) => {
+    let id = req.params.id;
+    
+      let rsvp = new rsvpModel({
+          status: req.body.status,
+          user: req.session.user.id,
+          event: new mongoose.Types.ObjectId(id),
+      });
+  
+   
+      let query = {event: rsvp.event, user: rsvp.user};
+      let update = {status: rsvp.status};
+      let options = {upsert: true}
+  
+      rsvpModel.findOneAndUpdate(query, update, options)
+      .then((event) =>
+      {
+          req.flash("success", "RSVP status is " + req.body.status + "!")
+         res.redirect('/users/profile')
+      })
+      .catch((err) =>{ return next(err);})
+  
+  }

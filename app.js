@@ -41,12 +41,15 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('tiny'));
 app.use(methodOverride('_method'));
-app.use(session({
-    secret: process.env.SECRET_KEY,
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({mongoUrl: url})
-}));
+app.use(
+    session({
+        secret: "sdkjkjsdjksdkj",
+        resave: false,
+        saveUninitialized: false,
+        store: new MongoStore({mongoUrl: url}),
+        cookie: {maxAge: 60*60*1000}
+        })
+    );  
 
 app.use(flash());
 

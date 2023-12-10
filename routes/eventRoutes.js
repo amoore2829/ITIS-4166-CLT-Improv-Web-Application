@@ -4,6 +4,7 @@ const fileUpload = require('../middleware/fileUpload');
 const {isLoggedIn, isAuthor} = require('../middleware/auth');
 const { validateId } = require('../middleware/validator');
 
+
 const router = express.Router();
 
 // GET /events
@@ -27,6 +28,8 @@ router.put('/:id', validateId, isLoggedIn, isAuthor, fileUpload.fileUpload, cont
 // DELETE /events/:id delete the event identify by id
 router.delete('/:id', validateId, isLoggedIn, isAuthor, controller.delete);
 
-router.get('/ev')
+// POST /events/:id/rsvp: create a new rsvp for the event
+router.post('/:id/rsvp', validateId, isLoggedIn, controller.rsvp);
+
 
 module.exports = router;
